@@ -1,8 +1,9 @@
 package excepciones.pajaro;
 
+import java.util.Optional;
 import java.util.Random;
 
-public class OperacionesJaula implements AutoCloseable {
+public class OperacionesJaula1 implements AutoCloseable {
 	private Jaula jaula;
 	private static Random random = new Random();
 
@@ -19,7 +20,7 @@ public class OperacionesJaula implements AutoCloseable {
 	}
 	
 	//Constructor
-	public OperacionesJaula(Jaula jaula) throws JaulaException {
+	public OperacionesJaula1(Jaula jaula) throws JaulaException {
 		if (jaula == null) {
 			throw new JaulaNotAvailableException("EXCEPCIÓN: La jaula no está disponible");
 		}
@@ -47,8 +48,12 @@ public class OperacionesJaula implements AutoCloseable {
 		if (jaulaLlena()) {
 			throw new EspacioInsuficienteException("EXCEPCIÓN: Espacio insuficiente en la jaula.");
 		}
-		if (!jaulaLlena() && jaula.isAbierta()) {
+		if (!jaula.isAbierta()) {
+			System.out.println("La jaula extá cerrada.");
+		}else {
+			System.out.print("El pajaro añadido: ");
 			jaula.getAlmacenamiento().add(pajaro);
+			
 		}
 		return true;
 	}
@@ -84,7 +89,7 @@ public class OperacionesJaula implements AutoCloseable {
 		System.out.println(j1.toString());
 
 		System.out.printf("Jaula con pajaros%n");
-		try (OperacionesJaula oj1 = new OperacionesJaula(j1)){
+		try (OperacionesJaula1 oj1 = new OperacionesJaula1(j1)){
 			oj1.meterPajaro(p1);
 			oj1.meterPajaro(p2);
 			oj1.sacaPajaro(p1);
