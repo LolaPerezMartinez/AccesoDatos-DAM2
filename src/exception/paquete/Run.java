@@ -1,6 +1,6 @@
 package exception.paquete;
 
-import exception.Excepciones;
+import exception.autocloseable.Excepciones;
 
 public class Run {
 	public static void main(String[] args) {
