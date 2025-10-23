@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.random.RandomGenerator;
 
 public class Persona {
 	private String nombre;
@@ -18,7 +19,9 @@ public class Persona {
 	private int yearNacimiento;
 	private static List<String> nombres;
 	private static List<String> apellidos;
-	private static Random random = new Random();
+	//private static Random random = new Random();
+	
+	private static RandomGenerator generador = RandomGenerator.getDefault();
 
 	public Persona() {
 
@@ -29,7 +32,7 @@ public class Persona {
 		apellido1 = apellidoAleatorio();
 		apellido2 = apellidoAleatorio();
 
-		yearNacimiento = random.nextInt(1920, 2026);
+		yearNacimiento = generador.nextInt(1920, 2026);
 
 	}
 
@@ -46,7 +49,7 @@ public class Persona {
 				}
 			}
 
-			nombreAleatorio = nombres.get(random.nextInt(nombres.size()));
+			nombreAleatorio = nombres.get(generador.nextInt(nombres.size()));
 
 		} catch (IOException e) {
 			System.out.println("Error al generar nombre aleatorio.");
@@ -65,7 +68,7 @@ public class Persona {
 					apellidos.add(apellido);
 				}
 			}
-			apellidoAleatorio = apellidos.get(random.nextInt(apellidos.size()));
+			apellidoAleatorio = apellidos.get(generador.nextInt(apellidos.size()));
 
 		} catch (IOException e) {
 			System.out.println("Error al generar apellido aleatorio.");
