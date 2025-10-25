@@ -28,6 +28,13 @@ public class Persona {
 	//permite el multihilo
 	private final static RandomGenerator generador = RandomGenerator.getDefault();
 	
+	public Persona () {
+		nombre = elementoAleatorio(nombres);
+		apellido1 = elementoAleatorio(apellidos);
+		apellido1 = elementoAleatorio(apellidos);
+		nacido = generador.nextInt(1920, 2026);
+	}
+	
 	//lo ideal es crear un método estatico para cuando se cree la clase se creen las listas de nombres 
 	//y apellidos
 	private static List<String> importarLista(String file){
@@ -54,14 +61,8 @@ public class Persona {
 		return lista.get(generador.nextInt(lista.size()));
 	}
 	
-	public Persona () {
-		nombre = elementoAleatorio(nombres);
-		apellido1 = elementoAleatorio(apellidos);
-		apellido1 = elementoAleatorio(apellidos);
-		nacido = generador.nextInt(1920, 2026);
-	}
 	
-	private static boolean generarSalida(String file, List<Persona> lista) {
+	private static boolean generarSalida(String file, List <Persona> lista) {
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(file));){
 			bw.write(String.format("CREATE DATABASE mundo;%n"));
 			bw.write(String.format("show databases;%n"));
