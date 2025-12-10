@@ -1,3 +1,4 @@
+
 -CANTIDAD-
 Cantidad: 200 | Frecuencia: 35
 Cantidad: 201 | Frecuencia: 31
@@ -2802,78 +2803,78 @@ Cantidad: 2999 | Frecuencia: 24
 Cantidad: 3000 | Frecuencia: 47
 
 -COLOR-
-Color:      | Frecuencia: 3437
-Color: Gris | Frecuencia: 3543
-Color: Naranja | Frecuencia: 3466
-Color: amarillo | Frecuencia: 6842
-Color: azul | Frecuencia: 3445
-Color: cian | Frecuencia: 3386
-Color: dorado | Frecuencia: 3377
-Color: gris | Frecuencia: 3393
-Color: lavanda | Frecuencia: 3465
-Color: lila | Frecuencia: 3466
-Color: magenta | Frecuencia: 3365
-Color: malva | Frecuencia: 3428
-Color: morado | Frecuencia: 7064
-Color: naranja | Frecuencia: 3486
-Color: negro | Frecuencia: 3477
-Color: ocre | Frecuencia: 3495
-Color: plata | Frecuencia: 3475
-Color: púrpura | Frecuencia: 3481
-Color: rojo | Frecuencia: 3423
-Color: rosa | Frecuencia: 3305
-Color: salmón | Frecuencia: 3421
-Color: verde | Frecuencia: 3462
-Color: zafiro | Frecuencia: 3469
-Color: zinc | Frecuencia: 3380
-Color: ámbar | Frecuencia: 3496
+color:      | Frecuencia: 3437
+color: Gris | Frecuencia: 3543
+color: Naranja | Frecuencia: 3466
+color: amarillo | Frecuencia: 6842
+color: azul | Frecuencia: 3445
+color: cian | Frecuencia: 3386
+color: dorado | Frecuencia: 3377
+color: gris | Frecuencia: 3393
+color: lavanda | Frecuencia: 3465
+color: lila | Frecuencia: 3466
+color: magenta | Frecuencia: 3365
+color: malva | Frecuencia: 3428
+color: morado | Frecuencia: 7064
+color: naranja | Frecuencia: 3486
+color: negro | Frecuencia: 3477
+color: ocre | Frecuencia: 3495
+color: plata | Frecuencia: 3475
+color: púrpura | Frecuencia: 3481
+color: rojo | Frecuencia: 3423
+color: rosa | Frecuencia: 3305
+color: salmón | Frecuencia: 3421
+color: verde | Frecuencia: 3462
+color: zafiro | Frecuencia: 3469
+color: zinc | Frecuencia: 3380
+color: ámbar | Frecuencia: 3496
 
 -MARCA-
-Marca: 120% Lino | Frecuencia: 3461
-Marca: Atakontu | Frecuencia: 3428
-Marca: Banana Blue | Frecuencia: 3468
-Marca: Brava Fabrics | Frecuencia: 3479
-Marca: Cooligan | Frecuencia: 3484
-Marca: Desigual | Frecuencia: 3405
-Marca: DioR | Frecuencia: 3463
-Marca: Dior | Frecuencia: 3452
-Marca: EdmmonD StudioS | Frecuencia: 3501
-Marca: Edmmond Studios | Frecuencia: 3388
-Marca: GAP | Frecuencia: 3509
-Marca: Hacket | Frecuencia: 3322
-Marca: Jack & Jones | Frecuencia: 3352
-Marca: Lacoste | Frecuencia: 3382
-Marca: Louis Vuitton | Frecuencia: 3488
-Marca: Mango | Frecuencia: 3479
-Marca: Napapijri | Frecuencia: 3509
-Marca: Nude Project | Frecuencia: 3419
-Marca: Ralph Lauren | Frecuencia: 3450
-Marca: Scotta 1985 | Frecuencia: 3387
-Marca: Silbon | Frecuencia: 3435
-Marca: Superdry | Frecuencia: 3422
-Marca: The Untouchables | Frecuencia: 3517
-Marca: TrendsplanT | Frecuencia: 3447
-Marca: Trendsplant | Frecuencia: 3419
-Marca: ZaRa | Frecuencia: 3422
-Marca: Zara | Frecuencia: 3559
+marca: 120% Lino | Frecuencia: 3461
+marca: Atakontu | Frecuencia: 3428
+marca: Banana Blue | Frecuencia: 3468
+marca: Brava Fabrics | Frecuencia: 3479
+marca: Cooligan | Frecuencia: 3484
+marca: Desigual | Frecuencia: 3405
+marca: DioR | Frecuencia: 3463
+marca: Dior | Frecuencia: 3452
+marca: EdmmonD StudioS | Frecuencia: 3501
+marca: Edmmond Studios | Frecuencia: 3388
+marca: GAP | Frecuencia: 3509
+marca: Hacket | Frecuencia: 3322
+marca: Jack & Jones | Frecuencia: 3352
+marca: Lacoste | Frecuencia: 3382
+marca: Louis Vuitton | Frecuencia: 3488
+marca: Mango | Frecuencia: 3479
+marca: Napapijri | Frecuencia: 3509
+marca: Nude Project | Frecuencia: 3419
+marca: Ralph Lauren | Frecuencia: 3450
+marca: Scotta 1985 | Frecuencia: 3387
+marca: Silbon | Frecuencia: 3435
+marca: Superdry | Frecuencia: 3422
+marca: The Untouchables | Frecuencia: 3517
+marca: TrendsplanT | Frecuencia: 3447
+marca: Trendsplant | Frecuencia: 3419
+marca: ZaRa | Frecuencia: 3422
+marca: Zara | Frecuencia: 3559
 
 -MODELO-
-Modelo: Manga Corta Hombre | Frecuencia: 11644
-Modelo: Manga Larga Unisex | Frecuencia: 11732
-Modelo: manga corta hombre | Frecuencia: 11658
-Modelo: manga corta mujer | Frecuencia: 11680
-Modelo: manga corta unisex | Frecuencia: 11620
-Modelo: manga larga hombre | Frecuencia: 11792
-Modelo: manga larga mujer | Frecuencia: 11335
-Modelo: manga larga unisex | Frecuencia: 11586
+modelo: Manga Corta Hombre | Frecuencia: 11644
+modelo: Manga Larga Unisex | Frecuencia: 11732
+modelo: manga corta hombre | Frecuencia: 11658
+modelo: manga corta mujer | Frecuencia: 11680
+modelo: manga corta unisex | Frecuencia: 11620
+modelo: manga larga hombre | Frecuencia: 11792
+modelo: manga larga mujer | Frecuencia: 11335
+modelo: manga larga unisex | Frecuencia: 11586
 
 -TALLA-
-Talla: L/XL | Frecuencia: 10288
-Talla: M | Frecuencia: 10244
-Talla: M/L | Frecuencia: 10387
-Talla: S | Frecuencia: 10310
-Talla: S/M | Frecuencia: 10357
-Talla: XL | Frecuencia: 10208
-Talla: XL/XXL | Frecuencia: 10416
-Talla: XS | Frecuencia: 10455
-Talla: XXL | Frecuencia: 10382
+talla: L/XL | Frecuencia: 10288
+talla: M | Frecuencia: 10244
+talla: M/L | Frecuencia: 10387
+talla: S | Frecuencia: 10310
+talla: S/M | Frecuencia: 10357
+talla: XL | Frecuencia: 10208
+talla: XL/XXL | Frecuencia: 10416
+talla: XS | Frecuencia: 10455
+talla: XXL | Frecuencia: 10382
