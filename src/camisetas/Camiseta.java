@@ -23,8 +23,7 @@ public class Camiseta {
 	private String modelo;
 	private String talla;
 
-	private static long nextId = 1;
-	
+
 	private static final String pathArchivo = "archivos_camiseta/camisetas.txt";
 	private static final String pathArchivoSinErrores = "archivos_camiseta/camisetas_sin_errores_de_linea.txt";
 	private static final String pathArchivoConErrores = "archivos_camiseta/camisetas_con_errores_de_linea.log";
@@ -33,28 +32,18 @@ public class Camiseta {
 	private static final String pathCamisetasFinales = "archivos_camiseta/camisetas_finales.txt";
 	private static final String pathCamisetasSQL = "archivos_camiseta/camisetas.sql";
 	
-	//Ver si constructor es necesario
-	public Camiseta(int cantidad, String color, String marca, String modelo, String talla) {
-		id = nextId++;
-		this.cantidad = cantidad;
-		this.color = color;
-		this.marca = marca;
-		this.modelo = modelo;
-		this.talla = talla;
-	}
-
+	
 	private static void leer() {
-		List<String> listaConErrores = new ArrayList<>();
+	    List<String> listaConErrores = new ArrayList<>();
 
-		int lineasEliminadas = 0;
-		int lineasTotales = 0;
+	    int lineasTotales = 0;
 
-		try (BufferedReader br = new BufferedReader(new FileReader(pathArchivo));
-				BufferedWriter bw = new BufferedWriter(new FileWriter(pathArchivoSinErrores));
-				BufferedWriter bwE = new BufferedWriter(new FileWriter(pathArchivoConErrores))) {
+	    try (BufferedReader br = new BufferedReader(new FileReader(pathArchivo));
+	         BufferedWriter bw = new BufferedWriter(new FileWriter(pathArchivoSinErrores, false));
+	         BufferedWriter bwE = new BufferedWriter(new FileWriter(pathArchivoConErrores, false))) {
 
-			String linea = br.readLine();
-			while (linea != null) {
+	    	String linea;
+			while ((linea = br.readLine()) != null) {
 				lineasTotales++;
 
 				int numeroComas = 0;
@@ -64,17 +53,16 @@ public class Camiseta {
 						numeroComas++;
 					}
 				}
+				
 				if (numeroComas == 5) {
 					bw.write(linea + "\n");
 				} else {
-					lineasEliminadas++;
 					listaConErrores.add(linea);
 				}
 
-				linea = br.readLine();
 			}
 			bwE.write("Total de líneas analizadas: " + lineasTotales + "\n");
-			bwE.write("Total de líneas eliminadas: " + lineasEliminadas + "\n" + "\n");
+			bwE.write("Total de líneas eliminadas: " + listaConErrores.size() + "\n" + "\n");
 			bwE.write("Las líneas eliminadas son: " + "\n");
 
 			for (String line : listaConErrores) {
@@ -86,106 +74,51 @@ public class Camiseta {
 		}
 	}
 
+	
 	private static void frecuencias() {
 		try (BufferedReader br = new BufferedReader(new FileReader(pathArchivoSinErrores));
-			 BufferedWriter bwA = new BufferedWriter(new FileWriter(pathFrecuenciasAntes));
-			 BufferedWriter bwD = new BufferedWriter(new FileWriter(pathFrecuenciasDespues));) {
-			Map<Integer, Integer> mapCantidad = new TreeMap<>();
+				BufferedWriter bwA = new BufferedWriter(new FileWriter(pathFrecuenciasAntes, false));
+				BufferedWriter bwD = new BufferedWriter(new FileWriter(pathFrecuenciasDespues, false));) {
+			Map<String, Integer> mapCantidad = new TreeMap<>();
 			Map<String, Integer> mapColor = new TreeMap<>();
 			Map<String, Integer> mapMarca = new TreeMap<>();
 			Map<String, Integer> mapModelo = new TreeMap<>();
 			Map<String, Integer> mapTalla = new TreeMap<>();
 
-			String linea = br.readLine();
-			while (linea != null) {
+			String linea;
+			while ((linea = br.readLine()) != null) {
 
-				String[] datosLinea = linea.split(",");
+				String[] datosLinea = linea.split(",", -1);
 
-				for (int i = 1; i < datosLinea.length; i++) {
-					switch (i) {
-					case 1: {
-						int cantidadNum = Integer.valueOf(datosLinea[i]);
-						mapCantidad.put(cantidadNum, mapCantidad.getOrDefault(cantidadNum, 0) + 1);
-						break;
-					}
-					case 2: {
-						mapColor.put(datosLinea[i], mapColor.getOrDefault(datosLinea[i], 0) + 1);
-						break;
-					}
-					case 3: {
-						mapMarca.put(datosLinea[i], mapMarca.getOrDefault(datosLinea[i], 0) + 1);
-						break;
-					}
-					case 4:
-						mapModelo.put(datosLinea[i], mapModelo.getOrDefault(datosLinea[i], 0) + 1);
-						break;
-					case 5:
-						mapTalla.put(datosLinea[i], mapTalla.getOrDefault(datosLinea[i], 0) + 1);
-						break;
+				sumarFrecuencias(mapCantidad, datosLinea[1]);
+				sumarFrecuencias(mapColor, datosLinea[2]);
+				sumarFrecuencias(mapMarca, datosLinea[3]);
+				sumarFrecuencias(mapModelo, datosLinea[4]);
+				sumarFrecuencias(mapTalla, datosLinea[5]);
 
-					}
-				}
-				linea = br.readLine();
 			}
-
-			bwA.write(addEnunciado("cantidad"));
-			bwD.write(addEnunciado("cantidad"));
-			for (Integer cantidad : mapCantidad.keySet()) {
-				bwA.write("Cantidad: " + cantidad + " | Frecuencia: " + mapCantidad.get(cantidad) + "\n");
-				bwD.write("Cantidad: " + cantidad + " | Frecuencia: " + mapCantidad.get(cantidad) + "\n");
-			}
-			// AQUI TENGO QUE COMPROBAR SI FUNCIONA
-			addTexto("color", mapColor, bwA, bwD);
-			addTexto("marca", mapMarca, bwA, bwD);
-			addTexto("modelo", mapModelo, bwA, bwD);
-			addTexto("talla", mapTalla, bwA, bwD);
-
-//			bwA.write("\n" + "-COLOR-" + "\n");
-//			bwD.write("\n" + "-COLOR-" + "\n");
-//			for (String color : mapColor.keySet()) {
-//				bwA.write("Color: " + color + " | Frecuencia: " + mapColor.get(color) + "\n");
-//			}
-//			for (String color : depurar(mapColor).keySet()) {
-//				bwD.write("Color: " + color + " | Frecuencia: " + depurar(mapColor).get(color) + "\n");
-//			}
-//			
-//			bwA.write(addEnunciado("marca"));
-//			bwD.write("\n" + "-MARCA-" + "\n");
-//			for (String marca : mapMarca.keySet()) {
-//				bwA.write("Marca: " + marca + " | Frecuencia: " + mapMarca.get(marca) + "\n");
-//			}
-//			for (String marca : depurar(mapMarca).keySet()) {
-//				bwD.write("Marca: " + marca + " | Frecuencia: " + depurar(mapMarca).get(marca) + "\n");
-//			}
-//			
-//			bwA.write("\n" + "-MODELO-" + "\n");
-//			bwD.write("\n" + "-MODELO-" + "\n");
-//			for (String modelo : mapModelo.keySet()) {
-//				bwA.write("Modelo: " + modelo + " | Frecuencia: " + mapModelo.get(modelo) + "\n");
-//			}
-//			for (String  modelo : depurar(mapModelo).keySet()) {
-//				bwD.write("Modelo: " + modelo + " | Frecuencia: " + depurar(mapModelo).get(modelo) + "\n");
-//			}
-//			
-//			bwA.write("\n" + "-TALLA-" + "\n");
-//			bwD.write("\n" + "-TALLA-" + "\n");
-//			for (String talla : mapTalla.keySet()) {
-//				bwA.write("Talla: " + talla + " | Frecuencia: " + mapTalla.get(talla) + "\n");
-//			}
-//			for (String talla : depurar(mapTalla).keySet()) {
-//				bwD.write("Talla: " + talla + " | Frecuencia: " + depurar(mapTalla).get(talla) + "\n");
-//			}
+			generarReporteFrecuencias("cantidad", mapCantidad, bwA, bwD);
+			generarReporteFrecuencias("color", mapColor, bwA, bwD);
+			generarReporteFrecuencias("marca", mapMarca, bwA, bwD);
+			generarReporteFrecuencias("modelo", mapModelo, bwA, bwD);
+			generarReporteFrecuencias("talla", mapTalla, bwA, bwD);
 
 		} catch (IOException e) {
 			System.out.printf("%nProblemas con el procesamiento del archivo.%n");
 		}
 	}
-
+	//MÉTODO AUXILIAR MAP
+		private static void sumarFrecuencias(Map<String, Integer> mapa, String campo) {
+			mapa.put(campo, mapa.getOrDefault(campo, 0) + 1);
+		}
+	
+	//MÉTODO AUXILIAR ENUNCIADOS FRECUENCIAS
 	private static String addEnunciado(String enunciado) {
 		return String.format("%n-%S-%n", enunciado);
 	}
-
-	private static void addTexto(String enunciado, Map<String, Integer> mapOriginal, BufferedWriter bwA,
+	
+	//MÉTODO AUXILIAR TEXTO FRECUENCIAS
+	private static void generarReporteFrecuencias(String enunciado, Map<String, Integer> mapOriginal, BufferedWriter bwA,
 			BufferedWriter bwD) {
 		try {
 			bwA.write(addEnunciado(enunciado));
@@ -193,8 +126,8 @@ public class Camiseta {
 			for (String clave : mapOriginal.keySet()) {
 				bwA.write(enunciado + ": " + clave + " | Frecuencia: " + mapOriginal.get(clave) + "\n");
 			}
-			
-			Map<String, Integer> mapDepurado = depurar(mapOriginal);
+
+			Map<String, Integer> mapDepurado = depurarMap(mapOriginal);
 			for (String clave : mapDepurado.keySet()) {
 				bwD.write(enunciado + ": " + clave + " | Frecuencia: " + mapDepurado.get(clave) + "\n");
 			}
@@ -202,14 +135,14 @@ public class Camiseta {
 			System.out.printf("%nProblemas en el proceso de depuración.%n");
 		}
 	}
-
-	private static Map<String, Integer> depurar(Map<String, Integer> map) {
+	
+	//METODO AUXILIAR DEPURARMAP
+	private static Map<String, Integer> depurarMap(Map<String, Integer> map) {
 		Map<String, Integer> mapDepurado = new TreeMap<>();
 		String palabraDepurada;
 
 		for (String claveOriginal : map.keySet()) {
-			palabraDepurada = Normalizer.normalize(claveOriginal, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "")
-					.toLowerCase();
+			palabraDepurada = normalizarTexto(claveOriginal);
 
 			int valorClave = map.get(claveOriginal);
 
@@ -217,23 +150,35 @@ public class Camiseta {
 		}
 		return mapDepurado;
 	}
+	
+	//MÉTODO NORMALIZAR TEXTO
+	private static String normalizarTexto(String texto) {
+		if (texto == null || texto.isEmpty()) {
+			return "";
+		}
+		String palabraDepurada = Normalizer.normalize(texto, Normalizer.Form.NFD)
+								.replaceAll("\\p{M}", "")
+								.toLowerCase()
+								.trim();
+
+		return palabraDepurada;
+	}
 
 	private static void archivoFinal() {
 		try (BufferedReader br = new BufferedReader(new FileReader(pathArchivoSinErrores));
-				BufferedWriter bw = new BufferedWriter(new FileWriter(pathCamisetasFinales));) {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(pathCamisetasFinales, false));) {
 
-			String linea = br.readLine();
+			String linea;
 
-			while (linea != null) {
+			while ((linea = br.readLine()) != null) {
 
-				String[] arrayLinea = linea.split(",");
+				String[] arrayLinea = linea.split(",", -1);
 				String campoNormalizado;
 				for (int i = 1; i < arrayLinea.length; i++) {
 					if (i == 1) {
 						bw.write(arrayLinea[i]);
 					} else {
-						campoNormalizado = Normalizer.normalize(arrayLinea[i], Normalizer.Form.NFD)
-								.replaceAll("[^\\p{ASCII}]", "").toLowerCase();
+						campoNormalizado = normalizarTexto(arrayLinea[i]);
 						bw.write(campoNormalizado);
 					}
 					if (i < arrayLinea.length - 1) {
@@ -241,7 +186,6 @@ public class Camiseta {
 					}
 				}
 				bw.write("\n");
-				linea = br.readLine();
 			}
 
 		} catch (IOException e) {
@@ -249,35 +193,41 @@ public class Camiseta {
 		}
 	}
 	
-	private static boolean generarSQL() {
+	//METODO AUXILIAR EVITAR ERROR EN SQL CON '
+	private static String comillasSQL(String texto) {
+		if (texto == null) {
+			return "";  
+		}
+	    return texto.replace("'", "''");
+	}
+	
+	private static void generarSQL() {
 		try (BufferedReader br = new BufferedReader(new FileReader(pathCamisetasFinales));
-			 BufferedWriter bw = new BufferedWriter(new FileWriter(pathCamisetasSQL))){
+				BufferedWriter bw = new BufferedWriter(new FileWriter(pathCamisetasSQL, false))) {
 			bw.write(String.format("CREATE DATABASE camisetas;%n"));
 			bw.write(String.format("show databases;%n"));
 			bw.write(String.format("USE camisetas;%n"));
-			bw.write(String.format("CREATE TABLE camisetas (id INT AUTO_INCREMENT PRIMARY KEY, cantidad INT, color VARCHAR(50), marca VARCHAR(50), modelo VARCHAR(50), talla VARCHAR(30));%n"));
+			bw.write(String.format(
+					"CREATE TABLE camisetas (id INT AUTO_INCREMENT PRIMARY KEY, cantidad INT, color VARCHAR(50), marca VARCHAR(50), modelo VARCHAR(50), talla VARCHAR(30));%n"));
 			bw.write(String.format("DESCRIBE camisetas;%n"));
-			
-			
-			String linea = br.readLine();			
-			while(linea != null) {
-				String[] datos = linea.split(",");
-	            bw.write(String.format("INSERT INTO camisetas (cantidad, color, marca, modelo, talla) VALUES (%s, '%s', '%s', '%s', '%s');\n",
-	                datos[0], datos[1], datos[2], datos[3], datos[4]));
-				linea = br.readLine();
+
+			String linea;
+			while ((linea = br.readLine()) != null) {
+				String[] datos = linea.split(",", -1);
+				bw.write(String.format(
+						"INSERT INTO camisetas (cantidad, color, marca, modelo, talla) VALUES (%s, '%s', '%s', '%s', '%s');\n",
+						datos[0], comillasSQL(datos[1]), comillasSQL(datos[2]), comillasSQL(datos[3]),comillasSQL(datos[4])));
 			}
-			return true;
 		} catch (IOException e) {
 			System.out.printf("%nNo se pudo realizar la importación al archivo SQL.%n");
 		}
-		return false;
 	}
 
 	public static void main(String[] args) {
 		leer();
 		frecuencias();
 		archivoFinal();
-		System.out.printf("Se generó el archivo SQL : %s%n", generarSQL() ? "Sí" : "No");
+		generarSQL();
 	}
 
 }

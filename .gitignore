@@ -1,0 +1,36 @@
+# ===== ARCHIVOS GRANDES / LOGS =====
+*.log
+*.txt
+*.out
+
+# Carpeta específica que te está dando problemas
+archivos/camisetas/camisetas_con_errores_de_linea.log
+
+# ===== DIRECTORIOS GENERADOS =====
+bin/
+out/
+target/
+build/
+
+# ===== ECLIPSE =====
+.classpath
+.project
+.settings/
+
+# ===== JAVA =====
+*.class
+
+# ===== SISTEMA =====
+.DS_Store
+Thumbs.db
+
+# ===== GIT =====
+*.orig
+
+# ===== WINDOWS =====
+*.exe
+*.dll
+
+# ===== LINUX =====
+*.o
+*.so
