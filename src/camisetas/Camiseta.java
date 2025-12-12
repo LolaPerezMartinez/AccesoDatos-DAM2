@@ -174,8 +174,8 @@ public class Camiseta {
 
 				String[] arrayLinea = linea.split(",", -1);
 				String campoNormalizado;
-				for (int i = 1; i < arrayLinea.length; i++) {
-					if (i == 1) {
+				for (int i = 0; i < arrayLinea.length; i++) {
+					if (i <= 1) {
 						bw.write(arrayLinea[i]);
 					} else {
 						campoNormalizado = normalizarTexto(arrayLinea[i]);
@@ -204,19 +204,25 @@ public class Camiseta {
 	private static void generarSQL() {
 		try (BufferedReader br = new BufferedReader(new FileReader(pathCamisetasFinales));
 				BufferedWriter bw = new BufferedWriter(new FileWriter(pathCamisetasSQL, false))) {
-			bw.write(String.format("CREATE DATABASE camisetas;%n"));
-			bw.write(String.format("show databases;%n"));
+			bw.write(String.format("CREATE DATABASE IF NOT EXISTS camisetas;%n"));
+			bw.write(String.format("SHOW DATABASES;%n"));
 			bw.write(String.format("USE camisetas;%n"));
 			bw.write(String.format(
-					"CREATE TABLE camisetas (id INT AUTO_INCREMENT PRIMARY KEY, cantidad INT, color VARCHAR(50), marca VARCHAR(50), modelo VARCHAR(50), talla VARCHAR(30));%n"));
+					"CREATE TABLE camisetas (id INT PRIMARY KEY, cantidad INT, color VARCHAR(50), marca VARCHAR(50), modelo VARCHAR(50), talla VARCHAR(30));%n"));
 			bw.write(String.format("DESCRIBE camisetas;%n"));
 
 			String linea;
 			while ((linea = br.readLine()) != null) {
 				String[] datos = linea.split(",", -1);
+				
+				if (datos.length != 6) {
+	                System.err.println("Línea con formato incorrecto: " + linea);
+	                continue;
+	            }
+				
 				bw.write(String.format(
-						"INSERT INTO camisetas (cantidad, color, marca, modelo, talla) VALUES (%s, '%s', '%s', '%s', '%s');\n",
-						datos[0], comillasSQL(datos[1]), comillasSQL(datos[2]), comillasSQL(datos[3]),comillasSQL(datos[4])));
+						"INSERT INTO camisetas (id, cantidad, color, marca, modelo, talla) VALUES (%s, %s, '%s', '%s', '%s', '%s');\n",
+						datos[0], datos[1], comillasSQL(datos[2]), comillasSQL(datos[3]),comillasSQL(datos[4]), comillasSQL(datos[5])));
 			}
 		} catch (IOException e) {
 			System.out.printf("%nNo se pudo realizar la importación al archivo SQL.%n");
