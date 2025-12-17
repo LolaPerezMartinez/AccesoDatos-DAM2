@@ -136,7 +136,7 @@ public class Camiseta {
 		}
 	}
 	
-	//METODO AUXILIAR DEPURARMAP
+	//METODO AUXILIAR DEPURAR MAP
 	private static Map<String, Integer> depurarMap(Map<String, Integer> map) {
 		Map<String, Integer> mapDepurado = new TreeMap<>();
 		String palabraDepurada;
